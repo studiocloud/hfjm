@@ -1,0 +1,20 @@
+[build]
+builder = "nixpacks"
+buildCommand = "cd server && npm install"
+
+[deploy]
+startCommand = "cd server && npm start"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+[env]
+NODE_ENV = "production"
+
+[[services]]
+internal_port = 8080
+protocol = "http"
+auto_deploy_on = ["main", "master"]
+
+[[services.ports]]
+port = 80
+handlers = ["http"]
